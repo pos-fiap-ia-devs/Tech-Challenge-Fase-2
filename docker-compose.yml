@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: logistica_hospitalar
+      POSTGRES_DB: rota_hospitalar
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
