@@ -4,6 +4,7 @@ from database.conexao import get_connection
 
 
 def capacidade_disponivel_veiculo(placa):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -14,10 +15,11 @@ def capacidade_disponivel_veiculo(placa):
         print(f"Erro ao buscar capacidade disponível do veículo: {err}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def atualizar_capacidade_veiculo(placa, nova_capacidade):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -30,10 +32,11 @@ def atualizar_capacidade_veiculo(placa, nova_capacidade):
         print(f"Erro ao atualizar capacidade do veículo: {err}")
         return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def buscar_veiculos():
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -44,10 +47,11 @@ def buscar_veiculos():
         print(f"Erro ao listar veículos: {err}")
         return []
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def buscar_veiculo_por_id(veiculo_id):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -58,10 +62,11 @@ def buscar_veiculo_por_id(veiculo_id):
         print(f"Erro ao buscar veículo por ID: {err}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def buscar_veiculo_por_placa(placa):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -72,10 +77,11 @@ def buscar_veiculo_por_placa(placa):
         print(f"Erro ao buscar veículo por placa: {err}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def cadastrar_veiculo(modelo, placa, capacidade, capacidade_disponivel, autonomia):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -90,10 +96,11 @@ def cadastrar_veiculo(modelo, placa, capacidade, capacidade_disponivel, autonomi
         print(f"Erro ao cadastrar veículo: {err}")
         return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def excluir_veiculo(veiculo_id):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -105,5 +112,5 @@ def excluir_veiculo(veiculo_id):
         print(f"Erro ao deletar veículo: {err}")
         return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()

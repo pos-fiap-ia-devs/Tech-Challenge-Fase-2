@@ -4,6 +4,7 @@ from database.veiculo_service import buscar_veiculo_por_placa
 from database.conexao import get_connection
 
 def buscar_insumos():
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -25,8 +26,8 @@ def buscar_insumos():
         print(f"Erro ao listar insumos: {err}")
         return []
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def cadastrar_insumo(nome, quantidade, peso, criticidade, janela, rota_designada_produto, veiculo):
     veiculo_id = buscar_veiculo_por_placa(veiculo)['veiculo_id'] if veiculo else None
@@ -38,6 +39,7 @@ def cadastrar_insumo(nome, quantidade, peso, criticidade, janela, rota_designada
     elif criticidade == "Alto":
         criticidade = 3
 
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -52,10 +54,11 @@ def cadastrar_insumo(nome, quantidade, peso, criticidade, janela, rota_designada
         print(f"Erro ao cadastrar insumo: {err}")
         return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def excluir_insumo(id_insumo):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -66,10 +69,11 @@ def excluir_insumo(id_insumo):
         print(f"Erro ao deletar insumo: {err}")
         return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def buscar_detalhes_insumo_e_veiculo(veiculo_id):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -85,5 +89,5 @@ def buscar_detalhes_insumo_e_veiculo(veiculo_id):
         print(f"Erro ao buscar detalhes do insumo e veículo: {err}")
         return []
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()

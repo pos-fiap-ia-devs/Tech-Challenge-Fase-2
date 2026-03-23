@@ -6,6 +6,7 @@ from database.conexao import get_connection
 from database.base_service import buscar_ponto_base_por_veiculo
 
 def listar_rotas():
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -16,10 +17,11 @@ def listar_rotas():
         print(f"Erro ao listar endereços: {err}")
         return []
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def buscar_rota_por_endereco(rua, numero, cep):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -30,11 +32,12 @@ def buscar_rota_por_endereco(rua, numero, cep):
         print(f"Erro ao buscar rua: {err}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def cadastrar_rota(rua, numero, complemento, cidade, cep, veiculo, latitude, longitude):
     veiculo_id = buscar_veiculo_por_placa(veiculo)['veiculo_id'] if veiculo else None
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -49,10 +52,11 @@ def cadastrar_rota(rua, numero, complemento, cidade, cep, veiculo, latitude, lon
         print(f"Erro ao cadastrar endereço: {err}")
         return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def listar_rotas_por_veiculo(veiculo_id):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -63,10 +67,11 @@ def listar_rotas_por_veiculo(veiculo_id):
         print(f"Erro ao buscar endereços por veículo: {err}")
         return []
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def buscar_veiculo_por_rota(rua, numero, cep):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -81,10 +86,11 @@ def buscar_veiculo_por_rota(rua, numero, cep):
         print(f"Erro ao buscar veículo por rota: {err}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def buscar_rota_por_id(rota_id):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -95,10 +101,11 @@ def buscar_rota_por_id(rota_id):
         print(f"Erro ao buscar rota por ID: {err}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def excluir_rota(rua, numero):
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -109,8 +116,8 @@ def excluir_rota(rua, numero):
         print(f"Erro ao deletar veículo: {err}")
         return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
 
 def listar_coordenadas_por_veiculo(veiculo_id):
     coords = []
@@ -122,6 +129,7 @@ def listar_coordenadas_por_veiculo(veiculo_id):
 
     coords.append((float(base['latitude']), float(base['longitude'])))
 
+    conn = cursor = None
     try:
         conn = get_connection()
         cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -138,5 +146,5 @@ def listar_coordenadas_por_veiculo(veiculo_id):
         print(f"Erro ao buscar endereços por veículo: {err}")
         return []
     finally:
-        cursor.close()
-        conn.close()
+        if cursor: cursor.close()
+        if conn: conn.close()
