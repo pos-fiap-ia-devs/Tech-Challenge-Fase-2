@@ -62,7 +62,7 @@ if "pagina" not in st.session_state:
 
 with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/hospital.png", width=64)
-    st.title("Logística Hospitalar")
+    st.title("Logística de Rota Hospitalar")
     st.caption("Otimização de rotas com Algoritmos Genéticos")
     st.divider()
 
